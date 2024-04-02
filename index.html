@@ -1,0 +1,75 @@
+<script>
+
+    function getComputerChoice() {
+
+        function getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        switch (getRndInteger(1, 3)) {
+            case 1:
+                return 'rock';
+                break;
+            case 2:
+                return 'paper';
+                break;
+            case 3:
+                return 'scissors';
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    function playRound(playerSelection, computerSelection) {
+        let result = ''
+        if (computerSelection == playerSelection) {
+            return 'tie'
+        }
+        if ((computerSelection == 'rock' && playerSelection == 'scissors') ||
+            (computerSelection == 'paper' && playerSelection == 'rock') ||
+            (computerSelection == 'scissors' && playerSelection == 'paper')) {
+            return 'lose';
+        }
+        return 'win';
+    }
+
+    function playGame() {
+        playerPoints = 0;
+        computerPoints = 0;
+
+
+        while (playerPoints < 3 && computerPoints < 3) {
+            let computerSelection = getComputerChoice();
+            let playerSelection = prompt('Please enter your move. ex: "rock", "paper", "scissors"').toLowerCase().trim();
+            if (playerSelection == 'rock' || playerSelection == 'paper' || playerSelection == 'scissors') {
+                if (playRound(playerSelection, computerSelection) == 'tie') {
+                    console.log("Round tie. You both picked " + playerSelection + ".");
+                }
+                if (playRound(playerSelection, computerSelection) == 'lose') {
+                    console.log("You Lose! The computer's " + computerSelection + " beats your " + playerSelection + ".");
+                    computerPoints++;
+                }
+                if (playRound(playerSelection, computerSelection) == 'win') {
+                    console.log("You win! Your " + playerSelection + " beats the computer's " + computerSelection + ".");
+                    playerPoints++;
+                }
+            }
+            else {
+                console.log("Please enter valid user input!")
+            }
+        }
+
+        if (playerPoints > computerPoints) {
+            console.log("You win! With a score of " + playerPoints + " to " + computerPoints + ".");
+        }
+        else {
+            console.log("You lose! With a score of " + playerPoints + " to " + computerPoints + ".");
+        }
+        return;
+    }
+
+    playGame();
+
+</script>
